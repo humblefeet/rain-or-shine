@@ -3,7 +3,7 @@ import '../../pages/App/App.css';
 import axios from 'axios';
 import Login from '../Login/Login';
 import Signup from '../SignUp/Signup';
-import {UserProfile} from '../../pages/NavigationPage/UserProfile';
+import {UserProfile} from '../User/UserProfile';
 
 
 class SignInForm extends Component {

@@ -10,10 +10,6 @@ class Signup extends Component {
       name: '',
       email: '',
       password: '',
-      passHasCap: false,
-      passHasLow: false,
-      passHasDig: false,
-      passHasPunc: false,
       error: null
     }
     this.handleNameChange = this.handleNameChange.bind(this)
@@ -33,42 +29,6 @@ class Signup extends Component {
     })
   }
   handlePasswordChange(e) {
-    if (e.target.value.match(/[A-Z]/g)) {
-      this.setState({
-        passHasCap: true
-      })
-    } else {
-      this.setState({
-        passHasCap: false
-      })
-    }
-    if (e.target.value.match(/[a-z]/g)) {
-      this.setState({
-        passHasLow: true
-      })
-    } else {
-      this.setState({
-        passHasLow: false
-      })
-    }
-    if (e.target.value.match(/\d/g)) {
-      this.setState({
-        passHasDig: true
-      })
-    } else {
-      this.setState({
-        passHasDig: false
-      })
-    }
-    if (e.target.value.match(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g)) {
-      this.setState({
-        passHasPunc: true
-      })
-    } else {
-      this.setState({
-        passHasPunc: false
-      })
-    }
     this.setState({
       password: e.target.value
     })
@@ -76,7 +36,7 @@ class Signup extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    if (this.state.password.length < 10 || this.state.password > 99) {
+    if (this.state.password.length < 8 || this.state.password > 99) {
       // Password does not meet length requirements
       this.setState({
         error: {
@@ -85,26 +45,8 @@ class Signup extends Component {
           message: 'Password must be between 10 and 128 characters.'
         },
         password: '',
-        passHasCap: false,
-        passHasLow: false,
-        passHasDig: false,
-        passHasPunc: false
       })
-    } else if (!(this.state.passHasCap && this.state.passHasLow && this.state.passHasDig && this.state.passHasPunc)) {
-      // Password does not meet complexity requirements
-      this.setState({
-        error: {
-          type: 'auth_error',
-          status: 401,
-          message: 'Password not strong enough. Please meet requirements below.'
-        },
-        password: '',
-        passHasCap: false,
-        passHasLow: false,
-        passHasDig: false,
-        passHasPunc: false
-      })
-    } else {
+    }else {
       axios.post('/auth/signup', {
         name: this.state.name,
         email: this.state.email,
@@ -115,10 +57,6 @@ class Signup extends Component {
             error: result.data,
             email: '',
             password: '',
-            passHasCap: false,
-            passHasLow: false,
-            passHasDig: false,
-            passHasPunc: false
           })
         } else {
           localStorage.setItem('mernToken', result.data.token)
@@ -167,16 +105,6 @@ class Signup extends Component {
             <div className="right-col">
               <input name="s-password" type='password' value={this.state.password} onChange={this.handlePasswordChange} />
             </div>
-          </div>
-          <div>
-            <p>Password must meet these requirements:</p>
-            <ul>
-              <li className={(this.state.password.length > 9 && this.state.password.length < 129) ? "green" : "red"}>Length (10 to 128): {this.state.password.length}</li>
-              <li className={(this.state.passHasCap) ? "green" : "red"}>Contain 1+ uppercase letter (A-Z)</li>
-              <li className={(this.state.passHasLow) ? "green" : "red"}>Contain 1+ lowercase letter (a-z)</li>
-              <li className={(this.state.passHasDig) ? "green" : "red"}>Contain 1+ digit (0-9)</li>
-              <li className={(this.state.passHasPunc) ? "green" : "red"}>Contain 1+ special character (punctuation)</li>
-            </ul>
           </div>
           <input type='submit' value='Sign Up!' />
         </form>

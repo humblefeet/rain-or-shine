@@ -1,11 +1,16 @@
 import React from 'react'
 import './Welcome.css'
+import NavBar from '../Nav/Nav'
+import {
+    } from 'react-router-dom';
 
 
 class Welcome extends React.Component{
     render(){
         return(
-            <h1 className="Welcome">Rain or Shine</h1>
+                <div>
+                    <NavBar/>
+                </div>
         )
     }
 }

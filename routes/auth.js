@@ -11,6 +11,7 @@ router.post('/signup', (req, res) => {
   User.findOne({email: req.body.email}, function(err, user) {
     if (user) {
       // Email is already in the DB. Alert the user.
+      console.log("Email found in db")
       res.json({
         type: 'auth_error',
         status: 401,
@@ -25,6 +26,7 @@ router.post('/signup', (req, res) => {
       }, function(err, user) {
         // check for any DB errors
         if (err) {
+          console.log("got a db error")
           // Some error occurred creating the user
           res.json({
             type: 'db_error',
@@ -33,6 +35,7 @@ router.post('/signup', (req, res) => {
             error: err
           });
         } else {
+          console.log("success")
           // Log the user in (sign a new token)
           var token = jwt.sign(user.toObject(), process.env.JWT_SECRET, {
             expiresIn: 60 * 60 * 24
