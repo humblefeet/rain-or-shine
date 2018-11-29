@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import './App.css';
+import '../../pages/App/App.css';
 import axios from 'axios';
-import Login from './Login';
-import Signup from './Signup';
-import {UserProfile} from './UserProfile';
+import Login from '../Login/Login';
+import Signup from '../SignUp/Signup';
+import {UserProfile} from '../../pages/NavigationPage/UserProfile';
 
-class App extends Component {
+
+class SignInForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -89,7 +90,6 @@ class App extends Component {
       return (
         <div className="App">
           <header>
-            <h1>Welcome to my Site!</h1>
           </header>
           <div className="content-box">
             <UserProfile user={user} logout={this.logout} />
@@ -102,7 +102,6 @@ class App extends Component {
       return (
         <div className="App">
           <header>
-            <h1>Welcome to my Site!</h1>
           </header>
           <div className="content-box">
             <Signup liftToken={this.liftTokenToState} />
@@ -114,4 +113,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default SignInForm;

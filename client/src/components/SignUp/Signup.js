@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import ErrorPanel from './ErrorPanel';
+import ErrorPanel from '../Login/ErrorPanel';
 import './Signup.css';
 
 class Signup extends Component {
