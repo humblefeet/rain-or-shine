@@ -8,8 +8,8 @@ const NavBar = ({props, handleGetUserLocation}) => (
         <div>
             <h2>Welcome </h2>
             <Link to='/signin'>Sign In</Link>
-            <Link to='/weather'>
-                <span onClick={handleGetUserLocation}  >Weather</span>
+            <Link to='/weather' onClick={handleGetUserLocation}>
+                <span>Weather</span>
             </Link>
             <Link to='/favorites'>Favorites</Link>
             <Link to='/'>Log Out</Link>

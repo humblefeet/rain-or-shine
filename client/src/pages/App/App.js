@@ -13,8 +13,9 @@ import DetailRecommendationPage from '../DetailRecommendationPage/DetailRecommen
 import FavoritesPage from '../FavoritesPage/FavoritesPage';
 require('dotenv').config()
 const axios = require('axios');
-const base_url = 'http://api.openweathermap.org/data/2.5/'
-const api_key = `?api_key=${process.env.Open_Weather_API_KEY}`
+const base_url = 'https://api.darksky.net/forecast/'
+const API_KEY = `?api_key=${process.env.REACT_APP_DARK_SKY_API_KEY}`;
+
 
 
 
@@ -22,24 +23,24 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state={
-      temperature: 0,
-      rainChance: 0,
-      aqi: 0,
-      userLocation: null,
-      userLat: 0,
-      userLon: 0
+      temperature: Number,
+      rainChance: Number,
+      aqi: Number,
+      userLocation: String,
+      userLat: Number,
+      userLon: Number,
+      summary: String,
+      data: ''
     }
-    this.handleGetUserLocation = this.handleGetUserLocation.bind(this)
   }
 
 
-  handleGetUserLocation(e){
-    e.preventDefault()
+  componentWillMount(e){
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position)=>{
         this.setState({
-          userLat: position.coords.latitude,
-          userLon: position.coords.longitude
+          userLat: parseFloat(position.coords.latitude).toPrecision(12),
+          userLon: parseFloat(position.coords.longitude).toPrecision(12),
         })
         console.log(this.state.userLat, this.state.userLon)
       });
@@ -51,16 +52,20 @@ class App extends Component {
   
 
   componentDidMount(){
-    axios.get(`${base_url}weather/?lat=${this.state.userLat}lon=${this.state.userLon}&appid=${api_key}`)
-    .then(res =>{
-      var data=res.data;
-      this.setState({
-        temperature: data.main.temp,
-        rainChance: data.rain,
-        userLocation: data.name,
-
-      })
-    })
+    console.log("fetch here")
+    // axios.get(`${base_url}${API_KEY}/${this.state.userLat},${this.state.userLon}`)
+    // .then(res => {this.setState({
+    //   data: res.data
+      
+    // })
+    // console.log(res)})
+      // this.setState({
+      //   temperature: data.currently.temperature,
+      //   rainChance: data.currently.precipProbability,
+      //   summary: data.hourly.summary
+      // })
+    
+    // console.log(this.state.data)
   }
 
   render() {
@@ -78,9 +83,9 @@ class App extends Component {
             <Route exact path='/signin' render={(props)=> <SignInPage/>}/>
             <Route exact path='/weather'render={(props)=>
               <WeatherPage
-                temperature={this.state.temperature}
-                rainChance={this.state.rainChance}
-                aqi={this.state.aqi}
+                // temperature={this.state.temperature}
+                // rainChance={this.state.rainChance}
+                // aqi={this.state.aqi}
               />}/>
             <Route exact path='/recommendations' render={(props)=> <RecommendationsPage/>}/>
             <Route exact path='/recommendations/:id'render={(props)=> <DetailRecommendationPage/>}/>
