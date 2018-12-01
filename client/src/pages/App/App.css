@@ -1,17 +1,19 @@
-.App {
-  text-align: center;
-  vertical-align: top;
+body {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(53, 53, 255);
+  margin: 0 auto;
 }
 
-.App header {
-  width: 100%;
+nav {
   margin: 0;
-  text-align: center;
+  background-color: rgb(250, 213, 7);
 }
 
-.content-box {
-  width: 70%;
-  margin: 1em auto;
-  padding: 4rem;
-  background-color: white;
+.material-icons {
+  float: right;
+}
+
+h3 {
+  float: left;
 }

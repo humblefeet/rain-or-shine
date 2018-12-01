@@ -1,17 +1,14 @@
-import React from 'react'
-import './Welcome.css'
-import NavBar from '../Nav/Nav'
-import {
-    } from 'react-router-dom';
+import React from "react";
+import "./Welcome.css";
+import {} from "react-router-dom";
 
-
-class Welcome extends React.Component{
-    render(){
-        return(
-                <div>
-                    <NavBar/>
-                </div>
-        )
-    }
+class Welcome extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>Welcome</h1>
+      </div>
+    );
+  }
 }
-export default Welcome
+export default Welcome;

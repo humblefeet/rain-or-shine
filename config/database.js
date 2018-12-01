@@ -1,10 +1,12 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
-mongoose.connect('mongodb://localhost/rain-or-shine',  {useNewUrlParser: true});
+mongoose.connect(
+  process.env.REACT_APP_DATABASE_URL,
+  { useNewUrlParser: true }
+);
 
 var db = mongoose.connection;
 
-db.once('open', () => {
-    console.log(`Connected to MongoDB ${db.name} at ${db.host}: ${db.port}`);
+db.once("open", () => {
+  console.log(`Connected to MongoDB ${db.name} at ${db.host}: ${db.port}`);
 });
-
