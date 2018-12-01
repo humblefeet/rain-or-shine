@@ -13,59 +13,64 @@ import DetailRecommendationPage from '../DetailRecommendationPage/DetailRecommen
 import FavoritesPage from '../FavoritesPage/FavoritesPage';
 require('dotenv').config()
 const axios = require('axios');
-const base_url = 'https://api.darksky.net/forecast/'
-const API_KEY = `?api_key=${process.env.REACT_APP_DARK_SKY_API_KEY}`;
-
-
-
+const base_url = 'https://localhost:3000'
+const four_square_base_url = 'https://api.foursquare.com/v2/'
+const FOURSQUARE_CLIENT_ID= process.env.REACT_APP_FOURSQUARE_CLIENT_ID
+const FOURSQUARE_CLIENT_SECRET=process.env.REACT_APP_FOURSQUARE_CLIENT_SECRET
+// const API_KEY = `?api_key=${process.env.REACT_APP_DARK_SKY_API_KEY}`;
+// var userLat;
+// var userLon;
 
 class App extends Component {
   constructor(props){
     super(props)
     this.state={
-      temperature: Number,
-      rainChance: Number,
-      aqi: Number,
-      userLocation: String,
-      userLat: Number,
-      userLon: Number,
-      summary: String,
-      data: ''
+      temperature: null,
+      rainChance: null,
+      aqi: null,
+      userLocation: '',
+      userLat: null,
+      userLon: null,
+      summary: '',
+      data: '',
+      places: null
     }
   }
 
-
-  componentWillMount(e){
+  getUserLocation(){
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position)=>{
-        this.setState({
-          userLat: parseFloat(position.coords.latitude).toPrecision(12),
-          userLon: parseFloat(position.coords.longitude).toPrecision(12),
-        })
-        console.log(this.state.userLat, this.state.userLon)
-      });
+          this.setState({
+            userLat: parseFloat(position.coords.latitude).toPrecision(12),
+            userLon: parseFloat(position.coords.longitude).toPrecision(12)
+          })
+      })
     } else { 
       alert("Geolocation is not supported by this browser.");
     }
   }
 
-  
-
   componentDidMount(){
-    console.log("fetch here")
-    // axios.get(`${base_url}${API_KEY}/${this.state.userLat},${this.state.userLon}`)
-    // .then(res => {this.setState({
-    //   data: res.data
-      
-    // })
-    // console.log(res)})
-      // this.setState({
-      //   temperature: data.currently.temperature,
-      //   rainChance: data.currently.precipProbability,
-      //   summary: data.hourly.summary
-      // })
-    
-    // console.log(this.state.data)
+    this.getUserLocation()
+
+    axios.post(`/api/weather`, {
+      userLat: this.state.userLat,
+      userLon: this.state.userLon
+    })
+    .then(response => console.log(response))
+
+
+    axios.get('/api/weather')
+      .then( (result) => {
+        this.setState({
+          data: result.data
+        })
+      })
+      .then(console.log(this.state.data))
+
+    axios.get(`${four_square_base_url}venues/explore?ll=40.7,-74&client_id=${FOURSQUARE_CLIENT_ID}&client_secret=${FOURSQUARE_CLIENT_SECRET}&v=20181130`)
+      .then(response => response.json())
+      .then(place=>  this.setState({places: place}))
   }
 
   render() {
@@ -86,7 +91,9 @@ class App extends Component {
                 // temperature={this.state.temperature}
                 // rainChance={this.state.rainChance}
                 // aqi={this.state.aqi}
-              />}/>
+              />}/>  
+                {console.log(this.state.places)}
+
             <Route exact path='/recommendations' render={(props)=> <RecommendationsPage/>}/>
             <Route exact path='/recommendations/:id'render={(props)=> <DetailRecommendationPage/>}/>
             <Route exact path='/favorites' render={() => <FavoritesPage/>}/>
