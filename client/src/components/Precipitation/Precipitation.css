@@ -1,0 +1,8 @@
+.Precipitation {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: black solid 4px;
+  text-align: center;
+  float: left;
+}

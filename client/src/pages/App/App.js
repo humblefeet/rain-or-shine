@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Welcome from "../../components/welcome/Welcome";
+// import Welcome from "../../components/welcome/Welcome";
 import NavButton from "../../components/Nav/NavButton";
 import SignInPage from "../SignInPage/SignInPage";
 import WeatherPage from "../WeatherPage/WeatherPage";
@@ -27,9 +27,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      temperature: null,
-      rainChance: null,
-      aqi: null,
+      temperature: 0,
+      precipitation: 0,
+      aqi: 0,
       userLocation: "",
       userLat: null,
       userLon: null,
@@ -39,31 +39,12 @@ class App extends Component {
     };
     this.getUserLocation = this.getUserLocation.bind(this);
   }
-  //Nav bar drop down click function
-  /* When the user clicks on the button, 
-  toggle between hiding and showing the dropdown content */
-  handleNavBar(e) {
-    e.preventDefault();
-    document.getElementById("myDropdown").classList.toggle("show");
-    if (!e.target.matches(".dropbtn")) {
-      var dropdowns = document.getElementsByClassName("dropdown-content");
-      var i;
-      for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains("show")) {
-          openDropdown.classList.remove("show");
-        }
-      }
-    }
-  }
 
   getUserLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
-        // this.setState({
         (latitude = parseFloat(position.coords.latitude).toPrecision(4)),
           (longitude = parseFloat(position.coords.longitude).toPrecision(4));
-        // });
       });
     } else {
       alert("Geolocation is not supported by this browser.");
@@ -97,14 +78,21 @@ class App extends Component {
         <div>
           <nav>
             <h3>Rain-Or-Shine</h3>
-            <NavButton handleNavBar={this.handleNavBar} />
+            <NavButton />
           </nav>
           <Switch>
             <Route exact path="/signin" render={props => <SignInPage />} />
             <Route
               exact
               path="/weather"
-              render={props => <WeatherPage places={this.state.places} />}
+              render={props => (
+                <WeatherPage
+                  precipitation={this.state.precipitation}
+                  temperature={this.state.temperature}
+                  places={this.state.places}
+                  aqi={this.state.aqi}
+                />
+              )}
             />
             {console.log(latitude, longitude)}
             {console.log(this.state.places)}

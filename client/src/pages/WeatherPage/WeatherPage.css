@@ -1,0 +1,10 @@
+.lowerTwo {
+  /* display: inline-block; */
+  margin: 0 auto;
+  justify-content: space-around;
+}
+
+h2 {
+  margin: 0 auto;
+  text-align: center;
+}

@@ -1,0 +1,15 @@
+.RecommendationsButton {
+  width: 50vw;
+  height: 1rem;
+  border: 3px solid black;
+  border-radius: 5%;
+  background-color: aliceblue;
+  padding: 10%;
+  vertical-align: text;
+  margin: 0 auto;
+  clear: both;
+}
+
+h3 {
+  text-align: center;
+}
