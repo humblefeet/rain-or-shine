@@ -12,7 +12,12 @@ class WeatherPage extends Component {
       <div className="WeatherPage">
         <h2>Weather Page</h2>
 
-        <Temperature temperature={this.props.temperature} />
+        <Temperature
+          weatherDescription={this.props.weatherDescription}
+          temperature={this.props.temperature}
+          tempMin={this.props.tempMin}
+          tempMax={this.props.tempMax}
+        />
         <Precipitation
           precipitation={this.props.precipitation}
           className="lowerTwo"
