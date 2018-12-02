@@ -14,7 +14,6 @@ const WEATHER_BASE_URL = "api.openweathermap.org/data/2.5/weather?";
 const FOUR_SQUARE_BASE_URL = "https://api.foursquare.com/v2/";
 // const FOURSQUARE_CLIENT_ID = process.env.REACT_APP_FOURSQUARE_CLIENT_ID;
 // const FOURSQUARE_CLIENT_SECRET = process.env.REACT_APP_FOURSQUARE_CLIENT_SECRET;
-const WEATHER_API_KEY = "03cf491e7ee66694a1ac4c9586ef95ff";
 var todayDate = new Date()
   .toISOString()
   .slice(0, 10)
