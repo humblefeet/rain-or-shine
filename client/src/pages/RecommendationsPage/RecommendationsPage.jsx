@@ -7,7 +7,10 @@ class RecommendationsPage extends Component {
     return (
       <div>
         <h2>Your Recommendations</h2>
-        <RecommendationsList places={this.props.places} />
+        <RecommendationsList
+          places={this.props.places}
+          handleVenueClick={this.props.handleVenueClick}
+        />
       </div>
     );
   }

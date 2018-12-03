@@ -1,8 +1,14 @@
-.Precipitation {
-  width: 200px;
-  height: 200px;
+.circle {
+  width: 30%;
+  height: auto;
   border-radius: 50%;
   border: black solid 4px;
   text-align: center;
   float: left;
+  padding: 3%;
+  background-color: white;
+}
+
+.Precipitation {
+  display: block;
 }

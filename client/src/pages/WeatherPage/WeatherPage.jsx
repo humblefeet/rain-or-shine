@@ -15,10 +15,12 @@ class WeatherPage extends Component {
         <Temperature
           weatherDescription={this.props.weatherDescription}
           temperature={this.props.temperature}
-          tempMin={this.props.tempMin}
-          tempMax={this.props.tempMax}
+          feelsLikeTemp={this.props.feelsLikeTemp}
+          temperatureMin={this.props.temperatureMin}
+          temperatureMax={this.props.temperatureMax}
         />
         <Precipitation
+          precipitationType={this.props.precipitationType}
           precipitation={this.props.precipitation}
           className="lowerTwo"
         />
