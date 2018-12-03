@@ -8,6 +8,7 @@ const Temperature = props => (
     <h6>High: {props.temperatureMax}</h6>
     <h4>Real Feel: {props.feelsLikeTemp}°F</h4>
     <h5>{props.weatherDescription}</h5>
+    <img src={props.weatherIcon} alt="weatherIcon" />
     <h5>Location here</h5>
   </div>
 );

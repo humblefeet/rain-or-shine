@@ -18,6 +18,7 @@ class WeatherPage extends Component {
           feelsLikeTemp={this.props.feelsLikeTemp}
           temperatureMin={this.props.temperatureMin}
           temperatureMax={this.props.temperatureMax}
+          weatherIcon={this.props.weatherIcon}
         />
         <Precipitation
           precipitationType={this.props.precipitationType}

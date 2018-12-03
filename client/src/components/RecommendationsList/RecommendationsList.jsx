@@ -10,7 +10,7 @@ const RecommendationsList = props => (
           <span onClick={() => props.handleVenueClick(id)}>
             {venue.venue.name}
             <img
-              src={`${venue.venue.categories[0].icon.prefix}` + ".png"}
+              src={`${venue.venue.categories[0].icon.prefix}.png`}
               alt="icon"
             />
           </span>

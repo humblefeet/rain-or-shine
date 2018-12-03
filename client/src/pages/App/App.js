@@ -45,7 +45,8 @@ class App extends Component {
       venues: [],
       venueId: null,
       venueInfo: null,
-      allWeather: null
+      allWeather: null,
+      weatherIcon: null
     };
     this.getUserLocation = this.getUserLocation.bind(this);
     this.handleVenueClick = this.handleVenueClick.bind(this);
@@ -107,7 +108,8 @@ class App extends Component {
           feelsLikeTemp: Math.round(weather.currently.apparentTemperature),
           precipitation: weather.currently.precipProbability * 100,
           precipitationType: weather.currently.precipType,
-          allWeather: weather
+          allWeather: weather,
+          weatherIcon: weather.hourly.data[0].icon
         })
       );
 
@@ -133,6 +135,7 @@ class App extends Component {
             <NavButton />
             {/* {console.log(this.state.latitude)}
             {console.log(this.state.longitude)} */}
+            {console.log(this.state.weatherIcon)}
             {console.log(this.state.venues)}
             {console.log(this.state.allWeather)}
           </nav>
@@ -151,6 +154,7 @@ class App extends Component {
                   aqi={this.state.aqi}
                   precipitation={this.state.precipitation}
                   precipitationType={this.state.precipitationType}
+                  weatherIcon={this.state.weatherIcon}
                 />
               )}
             />
