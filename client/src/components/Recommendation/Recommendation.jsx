@@ -3,7 +3,7 @@ import "./Recommendation.css";
 
 const Recommendation = props => (
   <div>
-    <h3>{props.places.venue.name}</h3>
+    <h3>{props.venue.venue.name}</h3>
   </div>
 );
 

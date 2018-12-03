@@ -5,12 +5,12 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 
 const RecommendationsList = props => (
   <div className="RecommendationsList">
-    {props.places.map(place => (
+    {props.places.map((place, id) => (
       <div>
-        <Link to={`/recommendations/:${place.venue.id}`} key={place.venue.id}>
+        <Link to={`/recommendations/${id}`} key={id}>
           <span
             onClick={() => {
-              props.handleVenueClick(place.venue.id);
+              props.handleVenueClick(id);
             }}
           >
             {place.venue.name}

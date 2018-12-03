@@ -8,8 +8,8 @@ class DetailRecommendationsPage extends Component {
       <div>
         <h2>One Recommendation</h2>
         <Recommendation
-          venueId={this.props.venueId}
-          places={this.props.places}
+          venueInfo={this.props.venueInfo}
+          venue={this.props.venue}
         />
       </div>
     );

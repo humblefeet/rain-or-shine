@@ -55,11 +55,6 @@ class App extends Component {
     this.setState({
       venueId: venueId
     });
-    if (this.state.places.venue.contains(venueId)) {
-      this.setState({
-        venueInfo: this.state.places.venue
-      });
-    }
   };
 
   getUserLocation = () => {
@@ -174,11 +169,12 @@ class App extends Component {
               path="/recommendations/:id"
               render={props => (
                 <DetailRecommendationPage
-                  venueId={this.state.venueId}
-                  places={this.state.places}
+                  venue={this.state.places[this.state.venueId]}
+                  venueInfo={this.state.venueInfo}
                 />
               )}
             />
+            {console.log(this.state.venueInfo)}
             <Route exact path="/favorites" render={() => <FavoritesPage />} />
           </Switch>
         </div>
