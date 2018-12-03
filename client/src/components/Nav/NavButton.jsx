@@ -24,6 +24,7 @@ class NavButton extends Component {
   }
 
   closeMenu(event) {
+    event.preventDefault();
     // if (!this.dropdownMenu.contains(event.target)) {
     this.setState({ showMenu: false }, () => {
       document.removeEventListener("click", this.closeMenu);

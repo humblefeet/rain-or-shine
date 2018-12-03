@@ -1,19 +1,18 @@
 import React from "react";
 import "./RecommendationsList.css";
-import Recommendation from "../Recommendation/Recommendation";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const RecommendationsList = props => (
   <div className="RecommendationsList">
-    {props.places.map((place, id) => (
+    {props.venues.map((venue, id) => (
       <div>
         <Link to={`/recommendations/${id}`} key={id}>
-          <span
-            onClick={() => {
-              props.handleVenueClick(id);
-            }}
-          >
-            {place.venue.name}
+          <span onClick={() => props.handleVenueClick(id)}>
+            {venue.venue.name}
+            <img
+              src={`${venue.venue.categories[0].icon.prefix}` + ".png"}
+              alt="icon"
+            />
           </span>
         </Link>
       </div>

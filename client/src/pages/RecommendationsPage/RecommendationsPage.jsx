@@ -8,8 +8,9 @@ class RecommendationsPage extends Component {
       <div>
         <h2>Your Recommendations</h2>
         <RecommendationsList
-          places={this.props.places}
+          venues={this.props.venues}
           handleVenueClick={this.props.handleVenueClick}
+          key={this.props.venueId}
         />
       </div>
     );

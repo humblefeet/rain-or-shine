@@ -8,7 +8,7 @@ import WeatherPage from "../WeatherPage/WeatherPage";
 import RecommendationsPage from "../RecommendationsPage/RecommendationsPage";
 import DetailRecommendationPage from "../DetailRecommendationPage/DetailRecommendationPage";
 import FavoritesPage from "../FavoritesPage/FavoritesPage";
-import Recommendation from "../../components/Recommendation/Recommendation";
+// import Recommendation from "../../components/Recommendation/Recommendation";
 require("dotenv").config();
 // const axios = require("axios");
 const REACT_APP_DARK_SKY_WEATHER_BASE_URL = "https://api.darksky.net/forecast/";
@@ -42,7 +42,7 @@ class App extends Component {
       userLocation: "",
       latitude: null,
       longitude: null,
-      places: [],
+      venues: [],
       venueId: null,
       venueInfo: null,
       allWeather: null
@@ -112,14 +112,14 @@ class App extends Component {
       );
 
     /*--- fetch from FourSquare ---*/
-    //if (this.state.precipitation > 50) {query indoor places}
-    //if (this.state.precipitation < 50 && this.state.precipitation >25 && this.state.temperature > 65){query all places}
-    //if (this.state.precipitation < 25  || weatherDescription  === 'sunny'){query all outdoor places}
+    //if (this.state.precipitation > 50) {query indoor venues}
+    //if (this.state.precipitation < 50 && this.state.precipitation >25 && this.state.temperature > 65){query all venues}
+    //if (this.state.precipitation < 25  || weatherDescription  === 'sunny'){query all outdoor venues}
     fetch(FOURSQUARE_FETCH)
       .then(response => response.json())
-      .then(places =>
+      .then(venues =>
         this.setState({
-          places: places.response.groups[0].items
+          venues: venues.response.groups[0].items
         })
       );
   }
@@ -133,7 +133,7 @@ class App extends Component {
             <NavButton />
             {/* {console.log(this.state.latitude)}
             {console.log(this.state.longitude)} */}
-            {console.log(this.state.places)}
+            {console.log(this.state.venues)}
             {console.log(this.state.allWeather)}
           </nav>
           <Switch>
@@ -159,8 +159,9 @@ class App extends Component {
               path="/recommendations"
               render={props => (
                 <RecommendationsPage
-                  places={this.state.places}
+                  venues={this.state.venues}
                   handleVenueClick={this.handleVenueClick}
+                  key={this.state.venueId}
                 />
               )}
             />
@@ -169,12 +170,11 @@ class App extends Component {
               path="/recommendations/:id"
               render={props => (
                 <DetailRecommendationPage
-                  venue={this.state.places[this.state.venueId]}
-                  venueInfo={this.state.venueInfo}
+                  venue={this.state.venues[this.state.venueId]}
+                  key={this.state.venueId}
                 />
               )}
             />
-            {console.log(this.state.venueInfo)}
             <Route exact path="/favorites" render={() => <FavoritesPage />} />
           </Switch>
         </div>

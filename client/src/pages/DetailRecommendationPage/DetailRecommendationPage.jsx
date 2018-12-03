@@ -7,10 +7,7 @@ class DetailRecommendationsPage extends Component {
     return (
       <div>
         <h2>One Recommendation</h2>
-        <Recommendation
-          venueInfo={this.props.venueInfo}
-          venue={this.props.venue}
-        />
+        <Recommendation key={this.props.id} venue={this.props.venue} />
       </div>
     );
   }
