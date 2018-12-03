@@ -8,11 +8,12 @@ import WeatherPage from "../WeatherPage/WeatherPage";
 import RecommendationsPage from "../RecommendationsPage/RecommendationsPage";
 import DetailRecommendationPage from "../DetailRecommendationPage/DetailRecommendationPage";
 import FavoritesPage from "../FavoritesPage/FavoritesPage";
+import Axios from "axios";
 // import Recommendation from "../../components/Recommendation/Recommendation";
 require("dotenv").config();
 // const axios = require("axios");
 const REACT_APP_DARK_SKY_WEATHER_BASE_URL = "https://api.darksky.net/forecast/";
-const REACT_APP_DARK_SKY_WEATHER_API_KEY = "fb953733971e96653ed3ad18c8ee4db8";
+const DARK_SKY_WEATHER_API_KEY = process.env.REACT_APP_DARK_SKY_WEATHER_API_KEY;
 const REACT_APP_FOUR_SQUARE_BASE_URL = "https://api.foursquare.com/v2/";
 var todayDate = new Date()
   .toISOString()
@@ -46,11 +47,19 @@ class App extends Component {
       venueId: null,
       venueInfo: null,
       allWeather: null,
-      weatherIcon: null
+      weatherIcon: null,
+      coordinates: null
     };
     this.getUserLocation = this.getUserLocation.bind(this);
     this.handleVenueClick = this.handleVenueClick.bind(this);
   }
+
+  // sendGeoLocationToBack(coordinates) {
+  //   Axios.get(`api/weather,  {coordinates} )
+  //     .then(result =>
+  //       this.setState({ coordinates })
+  //   );
+  //     }
 
   handleVenueClick = venueId => {
     this.setState({
@@ -59,19 +68,6 @@ class App extends Component {
   };
 
   getUserLocation = () => {
-    // if (navigator.geolocation) {
-    //   navigator.geolocation.getCurrentPosition(position => {
-    //     var crd = position.coords;
-    //     this.setState({
-    //       latitude: crd.latitude.toFixed(2),
-    //       longitude: crd.longitude.toFixed(2)
-    //     });
-    //   });
-    // } else {
-    //   alert("Geolocation is not supported by this browser.");
-    // }
-
-    /*-- 2 approaches to finding lat and long --*/
     var options = {
       enableHighAccuracy: true,
       timeout: 5000,
@@ -94,14 +90,12 @@ class App extends Component {
     this.getUserLocation();
 
     /*--- fetch from Weather API---*/
-    fetch(
-      "https://cors-anywhere.herokuapp.com/" +
-        `${REACT_APP_DARK_SKY_WEATHER_BASE_URL}${REACT_APP_DARK_SKY_WEATHER_API_KEY}/${latitude},${longitude}`
-    )
+    fetch("/api/weather")
       .then(response => response.json())
-      .then(weather =>
-        this.setState({
-          weatherDescription: weather.currently.summary,
+      .then(weather => {
+        console.log("this is the weather object:", weather);
+        return this.setState({
+          // weatherDescription: weather.currently.summary,
           temperature: Math.round(weather.currently.temperature),
           temperatureMin: Math.round(weather.daily.data[0].temperatureMin),
           temperatureMax: Math.round(weather.daily.data[0].temperatureMax),
@@ -110,8 +104,8 @@ class App extends Component {
           precipitationType: weather.currently.precipType,
           allWeather: weather,
           weatherIcon: weather.hourly.data[0].icon
-        })
-      );
+        });
+      });
 
     /*--- fetch from FourSquare ---*/
     //if (this.state.precipitation > 50) {query indoor venues}
@@ -121,7 +115,7 @@ class App extends Component {
       .then(response => response.json())
       .then(venues =>
         this.setState({
-          venues: venues.response.groups[0].items
+          // venues: venues.response.groups[0].items
         })
       );
   }

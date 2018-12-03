@@ -4,7 +4,7 @@ import "./WeatherPage.css";
 import Temperature from "../../components/Temperature/Temperature";
 import AirQuality from "../../components/AirQuality/AirQuality";
 import Precipitation from "../../components/Precipitation/Precipitation";
-import RecommendationsButton from "../../components/RecommendationsButton/RecommendationsButton";
+import { Link } from "react-router-dom";
 
 class WeatherPage extends Component {
   render() {
@@ -26,7 +26,11 @@ class WeatherPage extends Component {
           className="lowerTwo"
         />
         <AirQuality aqi={this.props.aqi} className="lowerTwo" />
-        <RecommendationsButton />
+        <Link to="/recommendations">
+          <div>
+            <h3>Local Spots</h3>
+          </div>
+        </Link>
       </div>
     );
   }

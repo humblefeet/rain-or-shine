@@ -1,18 +1,20 @@
-const express = require("express");
-require("dotenv").config();
-// const axios = require("axios");
-// const base_url = "https://api.darksky.net/forecast/";
-// const API_KEY = `?api_key=${process.env.REACT_APP_DARK_SKY_API_KEY}`;
-// var app = express();
-// var userLat;
-// var userLon;
+// router.get('/parks', function(req, res) {
 
-module.exports = {
-  getWeather(req, res, next) {
-    //     fetch(
-    //       `${base_url}${API_KEY}/${req.query.userLat},${req.query.userLon}`
-    //     ).then(response => {
-    //       res.json(response.data);
-    //     });
-  }
-};
+//   request(
+//       rootURL + 'parks&api_key=' + process.env.NPS_API_KEY,
+//       function(err, response, body) {
+//           res.json(JSON.parse(body))
+//       }
+//   );
+// });
+
+// router.get('/parks/:code', function(req, res) {
+
+//   request(
+//       rootURL + 'parks' + `?stateCode=${req.params.code}` + '&fields=images' + '&api_key=' + process.env.NPS_API_KEY,
+//       function(err, response, body) {
+//           // console.log(JSON.parse(body))
+//           res.json(JSON.parse(body))
+//       }
+//   );
+// });
