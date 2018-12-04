@@ -1,19 +1,26 @@
 var express = require("express");
 var router = express.Router();
 var Favorite = require('../models/Favorite')
+var User  = require('../models/User')
 
-router.get('/all', function(res,req,next){
-    Favorite.find({}, function(err, favorites){
+router.get('/', function(req,res,next){
+    Favorite.find({}, (err, favorites)=>{
         if(err)return next(err);
-
-        // res.send(favorites)
+        console.log(favorites)
     })
 })
 
-router.get('/:id', function(res,req,next){
-    Favorite.findById(req.params.id, function(err, favorite){
-        if(err)return next(err);
-        // res.send(favorite)
+router.post('/', (req,res,next)=>{
+    Favorite.create({
+        venueId: req.body.venueId,
+        venueName: req.body.venueName,
+        address: req.body.address,
+        icon: req.body.icon
+    },(err, favorite)=>{
+        User.findById(req.body.id,  (err,user)=>{
+            user.favorites.push(favorite._id);
+            user.save();
+        })
     })
 })
 

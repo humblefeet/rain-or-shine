@@ -1,5 +1,6 @@
 import React from "react";
 import "./Recommendation.css";
+import Favorite from'../Favorite/Favorite'
 
 const Recommendation = props => {
   return(
@@ -13,6 +14,7 @@ const Recommendation = props => {
     <div>
       <p>"{props.venue.reasons.items[0].summary}"</p>
     </div>
+    <Favorite user={props.user}/>
   </div>
   )
 };

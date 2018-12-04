@@ -46,18 +46,16 @@ var weatherUrl = `${DARK_SKY_BASE_URL}${DARK_SKY_WEATHER_API_KEY}/${latitude},${
 
 router.get("/weather", function(req, res) {
     request(weatherUrl, function(err, response, weather) {
-        var temperature = weather.response
-        // .currently.temperature;
-        var precipitation = weather.response
-        // .currently.precipProbability*100;
+        // var temperature = weather.currently.temperature;
+        // var precipitation = weather.currently.precipProbability*100;
 
-        if (precipitation > 50){ 
-            categories= `categoryId=${rain}`        
-        }else if (precipitation < 50 && precipitation >25 && temperature > 65){
-            categories=`categoryId=${rain},${sun}`
-        }else if (precipitation < 25  && temp > 50){
-            categories=`categoryId=${sun}`
-        }
+        // if (precipitation > 50){ 
+        //     categories= `categoryId=${rain}`        
+        // }else if (precipitation < 50 && precipitation >25 && temperature > 65){
+        //     categories=`categoryId=${rain},${sun}`
+        // }else if (precipitation < 25  && temp > 50){
+        //     categories=`categoryId=${sun}`
+        // }
         var foursquareUrl = `${FOURSQUARE_BASE_URL}explore?ll=${latitude},${longitude}
         &client_id=${process.env.FOURSQUARE_CLIENT_ID}
         &client_secret=${process.env.FOURSQUARE_CLIENT_SECRET}

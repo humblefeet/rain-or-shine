@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import NavButton from "../../components/Nav/NavButton";
 import SignInPage from "../SignInPage/SignInPage";
 import WeatherPage from "../WeatherPage/WeatherPage";
 import RecommendationsPage from "../RecommendationsPage/RecommendationsPage";
 import DetailRecommendationPage from "../DetailRecommendationPage/DetailRecommendationPage";
 import FavoritesPage from "../FavoritesPage/FavoritesPage";
-import Favorite from  '../../components/Favorite/Favorite'
-import { request } from "http";
+import Favorite from  '../../components/Favorite/Favorite';
+import Login from '../../components/Login/Login';
+import Signup from '../../components/SignUp/Signup';
+import {UserProfile} from '../../components/User/UserProfile';
 import Axios from "axios";
 require("dotenv").config();
 
@@ -17,6 +19,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      /*---- AUTH  ----*/
+      token: '',
+      user: null,
+      error: null,
+      lockedResult: '',
+      /*---- WEATHER ----*/
       weatherDescription: '',
       temperature: 0,
       feelsLikeTemp: 0,
@@ -29,6 +37,7 @@ class App extends Component {
       userLocation: '',
       latitude: 0,
       longitude: 0,
+      /*--- VENUES ---*/
       venues: [],
       venueId: null,
       venueInfo: '',
@@ -39,7 +48,74 @@ class App extends Component {
     };
     // this.getUserLocation = this.getUserLocation.bind(this);
     this.handleVenueClick = this.handleVenueClick.bind(this);
+    this.checkForLocalToken = this.checkForLocalToken.bind(this)
+    this.logout = this.logout.bind(this)
+    this.liftTokenToState = this.liftTokenToState.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
+
+  /*--------  Auth Functionality   --------*/
+
+  liftTokenToState(data) {
+    this.setState({
+      token: data.token,
+      user: data.user
+    })
+  }
+
+  handleClick(e) {
+    e.preventDefault()
+    Axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.state.token
+    Axios.get('/locked/test').then(result => {
+      this.setState({
+        lockedResult: result.data
+      })
+    })
+  }
+
+  logout() {
+    // Remove the token from localStorage
+    localStorage.removeItem('mernToken')
+    // Remove the user info from the state
+    this.setState({
+      token: '',
+      user: null
+    })
+  }
+
+  checkForLocalToken() {
+    // Look in local storage for the token
+    let token = localStorage.getItem('mernToken')
+    if (!token || token === 'undefined') {
+      // There was no token
+      localStorage.removeItem('mernToken')
+      this.setState({
+        token: '',
+        user: null
+      })
+    } else {
+      // We did find a token in localStorage
+      // Send it to the back to be verified
+      Axios.post('/auth/me/from/token', {
+        token
+      }).then( result => {
+        if (result.data.type !== 'success') {
+          this.setState({
+            error: result.data
+          })
+        } else {
+          // Put the token in localStorage
+          localStorage.setItem('mernToken', result.data.token)
+          this.setState({
+            token: result.data.token,
+            user: result.data.user
+          })
+        }
+      })
+    }
+  }
+
+  /*-------------  App Functionality  ---------------*/
 
   handleVenueClick = venueId => {
     this.setState({
@@ -86,14 +162,14 @@ class App extends Component {
   componentDidMount() {
     // this.getUserLocation();
 
-    /*--- fetch from Backend API---*/
+    /*-------- fetch from Backend API --------*/
     fetch("/api/weather")
-      .then(response => response.json())
+      .then(res => res.json())
       .then(weather => {
-        console.log(weather);
+        console.log(weather.currently);
         // console.log(weather.venues)
         return this.setState({
-          /*-- Assign state from weather Api --*/
+          /*------- Assign to state from weather Api ----------*/
           userLocation: weather.response.headerFullLocation,
           weatherDescription: weather.currently.summary,
           temperature: Math.round(weather.currently.temperature),
@@ -105,31 +181,30 @@ class App extends Component {
           allData: weather,
           weatherIcon: weather.hourly.data[0].icon,
           hourlySummary: weather.daily.summary,
-          /*-- Assign state from foursquare api--*/
+          /*--------- Assign to state from foursquare api ----------*/
           venues: weather.response.groups[0].items
 
         });
       });
 
-    fetch('/favorites/all')
-      .then(response=>response.json())
-      .then(favorites =>{
-        console.log(favorites)
-        this.setState({
-          favorites: favorites
-        })
-      })
 
-    
   }
 
   render() {
-    return (
-      <Router>
+    let user = this.state.user
+    if (user) {
+      return (
+        <div className="App">
+          <header>
+          </header>
+          <div className="content-box">
+          <Router>
         <div>
           <nav>
-            <img className="Title Logo" src="https://i.imgur.com/djkztGB.png"></img>
-            <h3 className="Title">Rain-Or-Shine</h3>
+            <Link to='/' >
+              <img className="Title Logo" src="https://i.imgur.com/djkztGB.png" alt="logo"></img>
+              <h3 className="Title">Rain-Or-Shine</h3>
+            </Link>
             <NavButton />
             {/* {console.log(this.state.weatherIcon)} */}
             {console.log(this.state.venues)}
@@ -140,7 +215,7 @@ class App extends Component {
             <Route exact path="/signin" render={props => <SignInPage />} />
             <Route
               exact
-              path="/weather"
+              path="/"
               render={props => (
                 <WeatherPage
                   feelsLikeTemp={this.state.feelsLikeTemp}
@@ -164,7 +239,7 @@ class App extends Component {
                 <RecommendationsPage
                   venues={this.state.venues}
                   handleVenueClick={this.handleVenueClick}
-                  key={this.state.venueId}
+                  venueId={this.state.venueId}
                 />
               )}
             />
@@ -176,6 +251,7 @@ class App extends Component {
                   venues={this.state.venues}
                   venue={this.state.venues[this.state.venueId]}
                   key={this.state.venueId}
+                  user={this.state.user}
                 />
               )}
             />
@@ -184,14 +260,28 @@ class App extends Component {
                 <FavoritesPage 
                   favorites={this.state.favorites}
                 />} />
-            <Route exact path="/favorites/:id"
-              render={() =>(
-                <Favorite/>
               )}/>
           </Switch>
         </div>
       </Router>
-    )
+            <UserProfile user={user} logout={this.logout} />
+            <p><a onClick={this.handleClick}>Test the protected route. Results below...</a></p>
+            <p>{this.state.lockedResult}</p>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="App">
+          <header>
+          </header>
+          <div className="content-box">
+            <Signup liftToken={this.liftTokenToState} />
+            <Login liftToken={this.liftTokenToState} />
+          </div>
+        </div>
+      )
+    }
   }
 }
 

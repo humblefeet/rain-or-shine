@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema; 
 const bcrypt = require('bcrypt');
 
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -21,7 +22,7 @@ const userSchema = new mongoose.Schema({
     minlength: [5, 'Email must be between 5 and 99 characters'],
     maxlength: [99, 'Email must be between 5 and 99 characters']
   },
-  favorites: [{type: Schema.Types.ObjectId, ref: 'Favorite'}],
+  favorites: [{type: Schema.Types.ObjectId, ref: 'Favorite'}]
 });
 
 // This returns a user object without a password

@@ -9,7 +9,7 @@ const RecommendationsList = props => {
         const imgSource =
           venue.venue.categories.length > 0 && venue.venue.categories[0].icon;
         return (
-          <div className="single" onClick={() => props.handleVenueClick(id)} key={props.key}>
+          <div className="single" onClick={() => props.handleVenueClick(id)} key={props.venueId}>
             <Link to={`/recommendations/${id}`} >
               <span >
                 {imgSource && (
