@@ -8,3 +8,9 @@ h2 {
   margin: 0 auto;
   text-align: center;
 }
+.button{
+  clear: both;
+  margin: 0 auto;
+  border: 4px black solid;
+  width: 45%
+}

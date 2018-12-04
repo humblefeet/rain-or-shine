@@ -4,12 +4,11 @@ import "./Temperature.css";
 const Temperature = props => (
   <div className="Temperature">
     <h1>{props.temperature}°F</h1>
-    <h6>Low: {props.temperatureMin}</h6>
-    <h6>High: {props.temperatureMax}</h6>
+    <h5>Low: {props.temperatureMin}    </h5>
+    <h5>  High: {props.temperatureMax}</h5>
     <h4>Real Feel: {props.feelsLikeTemp}°F</h4>
     <h5>{props.weatherDescription}</h5>
-    <img src={props.weatherIcon} alt="weatherIcon" />
-    <h5>Location here</h5>
+    <h5>{props.weatherSummary}</h5>
   </div>
 );
 export default Temperature;

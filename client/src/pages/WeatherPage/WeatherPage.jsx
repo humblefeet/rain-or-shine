@@ -10,7 +10,7 @@ class WeatherPage extends Component {
   render() {
     return (
       <div className="WeatherPage">
-        <h2>Weather Page</h2>
+        <h2>Local Weather</h2>
 
         <Temperature
           weatherDescription={this.props.weatherDescription}
@@ -19,15 +19,16 @@ class WeatherPage extends Component {
           temperatureMin={this.props.temperatureMin}
           temperatureMax={this.props.temperatureMax}
           weatherIcon={this.props.weatherIcon}
+          weatherSummary={this.props.weatherSummary}
         />
         <Precipitation
           precipitationType={this.props.precipitationType}
           precipitation={this.props.precipitation}
           className="lowerTwo"
         />
-        <AirQuality aqi={this.props.aqi} className="lowerTwo" />
+        {/* <AirQuality aqi={this.props.aqi} className="lowerTwo" /> */}
         <Link to="/recommendations">
-          <div>
+          <div className="button">
             <h3>Local Spots</h3>
           </div>
         </Link>
