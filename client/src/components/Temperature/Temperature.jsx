@@ -9,6 +9,7 @@ const Temperature = props => (
     <h4>Real Feel: {props.feelsLikeTemp}°F</h4>
     <h5>{props.weatherDescription}</h5>
     <h5>{props.weatherSummary}</h5>
+    <h3>{props.userLocation}</h3>
   </div>
 );
 export default Temperature;

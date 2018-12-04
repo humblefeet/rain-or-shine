@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../App/App.css";
 import "./WeatherPage.css";
 import Temperature from "../../components/Temperature/Temperature";
-import AirQuality from "../../components/AirQuality/AirQuality";
+// import AirQuality from "../../components/AirQuality/AirQuality";
 import Precipitation from "../../components/Precipitation/Precipitation";
 import { Link } from "react-router-dom";
 
@@ -20,6 +20,7 @@ class WeatherPage extends Component {
           temperatureMax={this.props.temperatureMax}
           weatherIcon={this.props.weatherIcon}
           weatherSummary={this.props.weatherSummary}
+          userLocation={this.props.userLocation}
         />
         <Precipitation
           precipitationType={this.props.precipitationType}

@@ -10,7 +10,7 @@ class RecommendationsPage extends Component {
         <RecommendationsList
           venues={this.props.venues}
           handleVenueClick={this.props.handleVenueClick}
-          key={this.props.venueId}
+          key={this.props.key}
         />
       </div>
     );

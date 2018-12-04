@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-// import Welcome from "../../components/welcome/Welcome";
 import NavButton from "../../components/Nav/NavButton";
 import SignInPage from "../SignInPage/SignInPage";
 import WeatherPage from "../WeatherPage/WeatherPage";
@@ -10,47 +9,28 @@ import DetailRecommendationPage from "../DetailRecommendationPage/DetailRecommen
 import FavoritesPage from "../FavoritesPage/FavoritesPage";
 // import Axios from "axios";
 require("dotenv").config();
-// const REACT_APP_FOUR_SQUARE_BASE_URL = "https://api.foursquare.com/v2/";
-// var todayDate = new Date()
-//   .toISOString()
-//   .slice(0, 10)
-//   .split("-")
-//   .join("");
-// var latitude = 47.62;
-// var longitude = -122.32;
-// var FOURSQUARE_FETCH = `${REACT_APP_FOUR_SQUARE_BASE_URL}venues/explore?ll=${latitude},${longitude}
-//   &client_id=${process.env.REACT_APP_FOURSQUARE_CLIENT_ID}
-//   &client_secret=${
-//     process.env.REACT_APP_FOURSQUARE_CLIENT_SECRET
-//   }&v=${todayDate}`;
-var  dummy= [
-              {name: "park",
-              location: "dagjkdnbfkadjhfladsknfladf"},
-              {name: "dfadfadf",
-              location:"dafgladnflakdjfla"},
-              {name: "dfkajhdgjdsg",
-              location: "dakfjhadlfskjadsf"}
-]
+
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       weatherDescription: null,
-      temperature: 50,
-      feelsLikeTemp: 34,
-      temperatureMin: 30,
-      temperatureMax: 70,
-      precipitation: 65,
-      precipitationType: "snow",
+      temperature: 0,
+      feelsLikeTemp: 0,
+      temperatureMin: 0,
+      temperatureMax: 0,
+      precipitation: 0,
+      precipitationType: null,
       hourlySummary: null,
       aqi: 0,
-      userLocation: "Seattle",
+      userLocation: null,
       latitude: null,
       longitude: null,
-      venues: dummy,
+      venues: null,
       venueId: null,
       venueInfo: null,
-      allWeather: null,
+      allData: null,
       weatherIcon: null,
       coordinates: null
     };
@@ -59,6 +39,7 @@ class App extends Component {
   }
 
   handleVenueClick = venueId => {
+    console.log('click')
     this.setState({
       venueId: venueId
     });
@@ -86,97 +67,90 @@ class App extends Component {
   componentDidMount() {
     // this.getUserLocation();
 
-    /*--- fetch from Backend Weather API---*/
+    /*--- fetch from Backend API---*/
     fetch("/api/weather")
       .then(response => response.json())
       .then(weather => {
         console.log(weather);
         // console.log(weather.venues)
         return this.setState({
-          // weatherDescription: weather.currently.summary,
-          // temperature: Math.round(weather.currently.temperature),
-          // temperatureMin: Math.round(weather.daily.data[0].temperatureMin),
-          // temperatureMax: Math.round(weather.daily.data[0].temperatureMax),
-          // feelsLikeTemp: Math.round(weather.currently.apparentTemperature),
-          // precipitation: weather.currently.precipProbability * 100,
-          // precipitationType: weather.currently.precipType,
-          // allWeather: weather,
-          // weatherIcon: weather.hourly.data[0].icon,
-          // hourlySummary: weather.daily.summary,
-          // venues: weather.venues
+          /*-- Assign state from weather Api --*/
+          userLocation: weather.response.headerFullLocation,
+          weatherDescription: weather.currently.summary,
+          temperature: Math.round(weather.currently.temperature),
+          temperatureMin: Math.round(weather.daily.data[0].temperatureMin),
+          temperatureMax: Math.round(weather.daily.data[0].temperatureMax),
+          feelsLikeTemp: Math.round(weather.currently.apparentTemperature),
+          precipitation: weather.currently.precipProbability * 100,
+          precipitationType: weather.currently.precipType,
+          allData: weather,
+          weatherIcon: weather.hourly.data[0].icon,
+          hourlySummary: weather.daily.summary,
+          /*-- Assign state from foursquare api--*/
+          venues: weather.response.groups[0].items
 
         });
       });
-
-    /*--- fetch from Backend FourSquare API ---*/
-
-  //   fetch("/api/recommendations")
-  //     .then(response => response.json())
-  //     .then(venues => {
-  //       console.log(venues);
-  //       return this.setState({
-  //         // venues:venues
-  //       });
-  //     });
   }
 
   render() {
     return (
-  //     <Router>
-  //       <div>
-  //         <nav>
-  //           <h3>Rain-Or-Shine</h3>
-  //           <NavButton />
-  //           {/* {console.log(this.state.weatherIcon)} */}
-  //           {console.log(this.state.venues)}
-  //           {console.log(this.state.allWeather)}
-  //         </nav>
-  //         <Switch>
-  //           <Route exact path="/signin" render={props => <SignInPage />} />
-  //           <Route
-  //             exact
-  //             path="/weather"
-  //             render={props => (
-  //               <WeatherPage
-  //                 feelsLikeTemp={this.state.feelsLikeTemp}
-  //                 weatherDescription={this.state.weatherDescription}
-  //                 temperature={this.state.temperature}
-  //                 temperatureMin={this.state.temperatureMin}
-  //                 temperatureMax={this.state.temperatureMax}
-  //                 aqi={this.state.aqi}
-  //                 precipitation={this.state.precipitation}
-  //                 precipitationType={this.state.precipitationType}
-  //                 weatherIcon={this.state.weatherIcon}
-  //                 weatherSummary={this.state.weatherSummary}
-  //               />
-  //             )}
-  //           />
-  //           <Route
-  //             exact
-  //             path="/recommendations"
-  //             render={props => (
-  //               <RecommendationsPage
-  //                 venues={this.state.venues}
-  //                 handleVenueClick={this.handleVenueClick}
-  //                 key={this.state.venueId}
-  //               />
-  //             )}
-  //           />
-  //           <Route
-  //             exact
-  //             path="/recommendations/:id"
-  //             render={props => (
-  //               <DetailRecommendationPage
-  //                 venue={this.state.venues[this.state.venueId]}
-  //                 key={this.state.venueId}
-  //               />
-  //             )}
-  //           />
-  //           <Route exact path="/favorites" render={() => <FavoritesPage />} />
-  //         </Switch>
-  //       </div>
-  //     </Router>
-  <div></div>
+      <Router>
+        <div>
+          <nav>
+            <h3>Rain-Or-Shine</h3>
+            <NavButton />
+            {/* {console.log(this.state.weatherIcon)} */}
+            {console.log(this.state.venues)}
+            {console.log(this.state.allWeather)}
+            
+          </nav>
+          <Switch>
+            <Route exact path="/signin" render={props => <SignInPage />} />
+            <Route
+              exact
+              path="/weather"
+              render={props => (
+                <WeatherPage
+                  feelsLikeTemp={this.state.feelsLikeTemp}
+                  weatherDescription={this.state.weatherDescription}
+                  temperature={this.state.temperature}
+                  temperatureMin={this.state.temperatureMin}
+                  temperatureMax={this.state.temperatureMax}
+                  aqi={this.state.aqi}
+                  precipitation={this.state.precipitation}
+                  precipitationType={this.state.precipitationType}
+                  weatherIcon={this.state.weatherIcon}
+                  weatherSummary={this.state.weatherSummary}
+                  userLocation={this.state.userLocation}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/recommendations"
+              render={props => (
+                <RecommendationsPage
+                  venues={this.state.venues}
+                  handleVenueClick={this.handleVenueClick}
+                  key={this.state.venueId}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/recommendations/:id"
+              render={props => (
+                <DetailRecommendationPage
+                  venue={this.state.venues[this.state.venueId]}
+                  key={this.state.venueId}
+                />
+              )}
+            />
+            <Route exact path="/favorites" render={() => <FavoritesPage />} />
+          </Switch>
+        </div>
+      </Router>
     )
   }
 }
