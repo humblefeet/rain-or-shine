@@ -9,16 +9,16 @@ const RecommendationsList = props => {
         const imgSource =
           venue.venue.categories.length > 0 && venue.venue.categories[0].icon;
         return (
-          <div key={props.key}>
+          <div className="single" onClick={() => props.handleVenueClick(id)} key={props.key}>
             <Link to={`/recommendations/${id}`} >
-              <span onClick={() => props.handleVenueClick(id)}>
-                {venue.venue.name}
+              <span >
                 {imgSource && (
                   <img
                     src={`${imgSource.prefix}bg_32${imgSource.suffix}`}
                     alt="icon"
                   />
-                )}
+                )}                
+                {venue.venue.name}
               </span>
             </Link>
           </div>
