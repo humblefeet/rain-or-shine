@@ -13,7 +13,13 @@ nav {
 .material-icons {
   float: right;
 }
-
-h3 {
-  float: left;
+h3{
+  font-size: 2em;
+  width: 50%
+}
+.Logo{
+  height: 80%
+}
+.Title{
+  float: left
 }

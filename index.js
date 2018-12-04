@@ -9,6 +9,7 @@ const locked = require('./routes/locked');
 const app = express();
 
 const weatherAPI = require('./routes/api')
+const favorites = require('./routes/favorites')
 // This line lets us accept POST data from axios
 app.use(bp.json());
 app.use(bp.urlencoded({extended: false}));
@@ -23,6 +24,7 @@ app.use('/auth', auth);
 app.use('/locked', expressJWT({secret: process.env.JWT_SECRET}).unless({method: 'POST'}), locked);
 
 app.use('/api', weatherAPI)
+app.use('/favorites', favorites)
 
 app.get('*', (req, res) => {
   res.sendFile(__dirname + "/client/build/index.html");

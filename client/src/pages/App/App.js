@@ -7,7 +7,9 @@ import WeatherPage from "../WeatherPage/WeatherPage";
 import RecommendationsPage from "../RecommendationsPage/RecommendationsPage";
 import DetailRecommendationPage from "../DetailRecommendationPage/DetailRecommendationPage";
 import FavoritesPage from "../FavoritesPage/FavoritesPage";
-// import Axios from "axios";
+import Favorite from  '../../components/Favorite/Favorite'
+import { request } from "http";
+import Axios from "axios";
 require("dotenv").config();
 
 
@@ -15,35 +17,52 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      weatherDescription: null,
+      weatherDescription: '',
       temperature: 0,
       feelsLikeTemp: 0,
       temperatureMin: 0,
       temperatureMax: 0,
       precipitation: 0,
-      precipitationType: null,
-      hourlySummary: null,
+      precipitationType: '',
+      hourlySummary: '',
       aqi: 0,
-      userLocation: null,
-      latitude: null,
-      longitude: null,
-      venues: null,
+      userLocation: '',
+      latitude: 0,
+      longitude: 0,
+      venues: [],
       venueId: null,
-      venueInfo: null,
-      allData: null,
-      weatherIcon: null,
-      coordinates: null
+      venueInfo: '',
+      allData: '',
+      weatherIcon: '',
+      coordinates: 0,
+      favorites:[]
     };
     // this.getUserLocation = this.getUserLocation.bind(this);
     this.handleVenueClick = this.handleVenueClick.bind(this);
   }
 
   handleVenueClick = venueId => {
-    console.log('click')
     this.setState({
       venueId: venueId
     });
   };
+
+  addFavorite = (venueId)=> {
+    Axios
+      .post('favorites/all',{
+        venueId: venueId
+      })
+      .then(
+        function(error){
+          console.log(error)
+        }
+      )
+      .then(function(response){
+        console.log(response)
+      })
+  }
+
+  handleAddFavorite=()=>{}
 
   // getUserLocation = () => {
   //   var options = {
@@ -91,6 +110,17 @@ class App extends Component {
 
         });
       });
+
+    fetch('/favorites/all')
+      .then(response=>response.json())
+      .then(favorites =>{
+        console.log(favorites)
+        this.setState({
+          favorites: favorites
+        })
+      })
+
+    
   }
 
   render() {
@@ -98,12 +128,13 @@ class App extends Component {
       <Router>
         <div>
           <nav>
-            <h3>Rain-Or-Shine</h3>
+            <img className="Title Logo" src="https://i.imgur.com/djkztGB.png"></img>
+            <h3 className="Title">Rain-Or-Shine</h3>
             <NavButton />
             {/* {console.log(this.state.weatherIcon)} */}
             {console.log(this.state.venues)}
             {console.log(this.state.allWeather)}
-            
+            {console.log(this.state.venues[this.state.venueId])}
           </nav>
           <Switch>
             <Route exact path="/signin" render={props => <SignInPage />} />
@@ -142,12 +173,21 @@ class App extends Component {
               path="/recommendations/:id"
               render={props => (
                 <DetailRecommendationPage
+                  venues={this.state.venues}
                   venue={this.state.venues[this.state.venueId]}
                   key={this.state.venueId}
                 />
               )}
             />
-            <Route exact path="/favorites" render={() => <FavoritesPage />} />
+            <Route exact path="/favorites" 
+              render={() => 
+                <FavoritesPage 
+                  favorites={this.state.favorites}
+                />} />
+            <Route exact path="/favorites/:id"
+              render={() =>(
+                <Favorite/>
+              )}/>
           </Switch>
         </div>
       </Router>
