@@ -14,7 +14,7 @@ const favorites = require('./routes/favorites')
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-mongoose.connect('mongodb://localhost/rainorshine');
+// mongoose.connect('mongodb://localhost/rainorshine');
 
 app.use(express.static(__dirname + "/client/build"));
 
