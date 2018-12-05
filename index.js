@@ -8,6 +8,8 @@ const locked = require('./routes/locked');
 
 const app = express();
 
+require('./config/database');
+
 const weatherAPI = require('./routes/api')
 const favorites = require('./routes/favorites')
 // This line lets us accept POST data from axios
