@@ -12,5 +12,7 @@ h2 {
   clear: both;
   margin: 0 auto;
   border: 4px black solid;
-  width: 45%
+  width: 45%;
+  background-color: rgb(255, 255, 163);
+  padding: 0 auto;
 }

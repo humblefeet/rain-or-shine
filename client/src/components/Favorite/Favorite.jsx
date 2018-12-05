@@ -7,24 +7,23 @@ class Favorite extends React.Component {
     handleClick(e){
         Axios.post('/favorites',{
             id: e,
-            venueId: req.body.venueId,
-            venueName: req.body.venueName,
-            address: req.body.address,
-            icon: req.body.icon
-        }).then(
-            function(response){
+            venueId: e.venueId,
+            venueName: e.venueName,
+            address: e.address,
+            icon: e.icon
+        }).then(function(response){
                 console.log(response)
             }
         ).then(function(error){
-            console.log(log)
+            console.log(error)
         })
     }
 
     render(){
         return(
             <div onClick={()=>this.handleClick(this.props.user)}>
-                <h1>Here is a button to press</h1>
             </div>
+
         )
     }
 }

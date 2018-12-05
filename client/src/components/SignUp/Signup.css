@@ -1,9 +1,12 @@
 .Signup {
-  display: inline-block;
-  width: 25vw;
-  background-color: yellow;
+  display: block;
+  height: 35%;
+  width: 60vw;
+  background-color: rgb(255, 218, 51);
   padding: 1rem;
-  margin: 1rem;
+  margin: 1em auto;
+  box-shadow: 2px 5px grey;
+  border-radius: 10px;
 }
 
 .input-box {
@@ -21,7 +24,7 @@
   display: inline-block;
   text-align: left;
   padding: 0.3em;
-  width: 35%;
+  width: 50%;
 }
 
 li {

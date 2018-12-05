@@ -11,6 +11,7 @@ class RecommendationsPage extends Component {
           venues={this.props.venues}
           handleVenueClick={this.props.handleVenueClick}
           venueId={this.props.venueId}
+          handleAddFavorite={this.props.handleAddFavorite}
         />
       </div>
     );

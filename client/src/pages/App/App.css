@@ -15,11 +15,13 @@ nav {
 }
 h3{
   font-size: 2em;
-  width: 50%
+  width: 60%
 }
 .Logo{
-  height: 80%
+  height: 80%;
+  float: left
 }
 .Title{
-  float: left
+  margin: auto;
+  width: 60%;
 }

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../App/App.css";
 import Favorite from '../../components/Favorite/Favorite'
 
+
 class FavoritesPage extends Component {
   render() {
     return (

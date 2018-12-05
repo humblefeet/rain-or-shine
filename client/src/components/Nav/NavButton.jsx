@@ -45,22 +45,14 @@ class NavButton extends Component {
                 this.dropdownMenu = element;
               }}
             >
-              <Link to="/signin">
-                <div className="dropdown-links">Sign In</div>
-              </Link>
-              <Link to="/weather">
-                <div className="dropdown-links">Weather</div>
-              </Link>
+              <h6>Welcome {this.props.user}</h6>
               <Link to="/favorites">
                 <div className="dropdown-links">Favorites</div>
               </Link>
               <Link to="/recommendations">
                 <div className="dropdown-links">Recommendations</div>
               </Link>
-              <Link to="/recommendations/:id">
-                <div className="dropdown-links">Recommendation Detail</div>
-              </Link>
-              <Link to="/">Log Out</Link>
+              <span onClick={this.props.logout}><h6>Log Out</h6> </span>
             </div>
           ) : null}
         </div>

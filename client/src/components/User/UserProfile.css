@@ -1,9 +1,10 @@
 .User-profile {
   display: inline-block;
   width: 50vw;
-  background-color: lightblue;
+  background-color: rgb(181, 225, 240);
   padding: 1rem;
   margin: 1rem;
+  box-shadow: 2px 4px grey;
 }
 
 .User-profile span {

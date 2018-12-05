@@ -4,10 +4,16 @@ import Recommendation from "../../components/Recommendation/Recommendation";
 
 class DetailRecommendationsPage extends Component {
   render() {
+    console.log(this.props.venue.venue.id)
     return (
       <div>
         <h2>One Recommendation</h2>
-        <Recommendation user={this.props.user} key={this.props.key} venue={this.props.venue} venues={this.props.venues}/>
+        <Recommendation 
+          user={this.props.user} 
+          key={this.props.key} 
+          venue={this.props.venue} 
+          venues={this.props.venues}
+        />
       </div>
     );
   }
