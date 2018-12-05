@@ -11,13 +11,12 @@ const app = express();
 const weatherAPI = require('./routes/api')
 const favorites = require('./routes/favorites')
 // This line lets us accept POST data from axios
-app.use(bp.json());
-app.use(bp.urlencoded({extended: false}));
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
 mongoose.connect('mongodb://localhost/rainorshine');
 
 app.use(express.static(__dirname + "/client/build"));
-
 
 app.use('/auth', auth);
 // This line uses the express-jwt node module to protect the routes
