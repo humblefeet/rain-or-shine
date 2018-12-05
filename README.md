@@ -84,6 +84,5 @@ To put it simply, Rain-or-Shine is a weather based activity web application. The
   - Profile avatar
   - email/ username
 
-### TrelloBoard
+<a href="https://trello.com/b/2vodfPNd/rain-or-shine">TrelloBoard</a>
 
-![Imgur](https://i.imgur.com/JbWI5gJ.png)
