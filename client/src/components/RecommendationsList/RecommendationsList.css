@@ -5,6 +5,9 @@
 
 .single{
   margin: 2% 5%;
+  border: 3px solid grey;
+  background-color: floralwhite;
+  -webkit-box-shadow: 3px 3px 1px #888888;
   box-shadow: 3px 3px 1px #888888;
 }
 

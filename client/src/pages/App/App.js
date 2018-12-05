@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import NavButton from "../../components/Nav/NavButton";
-import SignInPage from "../SignInPage/SignInPage";
+// import SignInPage from "../SignInPage/SignInPage";
 import WeatherPage from "../WeatherPage/WeatherPage";
 import RecommendationsPage from "../RecommendationsPage/RecommendationsPage";
 import DetailRecommendationPage from "../DetailRecommendationPage/DetailRecommendationPage";
@@ -157,6 +157,10 @@ class App extends Component {
   //       latitude: crd.latitude.toFixed(2),
   //       longitude: crd.longitude.toFixed(2)
   //     });
+  //     Axios.post('/coordinates', {
+  //       latitude: this.state.latitude,
+  //       longitude: this.state.longitude
+  //     })
   //   }
   //   function error(err) {
   //     console.warn(`ERROR(${err.code}): ${err.message}`);
@@ -198,76 +202,65 @@ class App extends Component {
     if (user) {
       return (
         <div className="App">
-          <header>
-          </header>
           <div className="content-box">
           <Router>
-        <div>
-        <nav>
-          <Link to='/' >
-            <img className=" Logo" src="https://i.imgur.com/OwTfzy4.png" alt="logo"></img>
-            <h3 className="Title">Rain-Or-Shine</h3>
-          </Link>
-          <NavButton logout={this.logout} user={user}/>
-        </nav>
-        <Switch>
-          <Route exact path="/signin" render={props => <SignInPage />} />
-          <Route
-            exact
-            path="/"
-            render={props => (
-              <WeatherPage
-                feelsLikeTemp={this.state.feelsLikeTemp}
-                weatherDescription={this.state.weatherDescription}
-                temperature={this.state.temperature}
-                temperatureMin={this.state.temperatureMin}
-                temperatureMax={this.state.temperatureMax}
-                aqi={this.state.aqi}
-                precipitation={this.state.precipitation}
-                precipitationType={this.state.precipitationType}
-                weatherIcon={this.state.weatherIcon}
-                weatherSummary={this.state.weatherSummary}
-                userLocation={this.state.userLocation}
+            <div>
+            <nav>
+              <Link to='/' >
+                <img className=" Logo" src="https://i.imgur.com/OwTfzy4.png" alt="logo"></img>
+                <h3 className="Title">Rain-Or-Shine</h3>
+              </Link>
+              <NavButton logout={this.logout} />
+            </nav>
+            <Switch>
+              <Route  exact  path="/"
+                render={props => (
+                  <WeatherPage
+                    feelsLikeTemp={this.state.feelsLikeTemp}
+                    weatherDescription={this.state.weatherDescription}
+                    temperature={this.state.temperature}
+                    temperatureMin={this.state.temperatureMin}
+                    temperatureMax={this.state.temperatureMax}
+                    aqi={this.state.aqi}
+                    precipitation={this.state.precipitation}
+                    precipitationType={this.state.precipitationType}
+                    weatherIcon={this.state.weatherIcon}
+                    weatherSummary={this.state.weatherSummary}
+                    userLocation={this.state.userLocation}
+                  />
+                )}
               />
-            )}
-          />
-          <Route
-            exact
-            path="/recommendations"
-            render={props => (
-              <RecommendationsPage
-                venues={this.state.venues}
-                handleVenueClick={this.handleVenueClick}
-                venueId={this.state.venueId}
-                handleAddFavorite={this.handleAddFavorite}
+              <Route exact path="/recommendations"
+                render={props => (
+                  <RecommendationsPage
+                    venues={this.state.venues}
+                    handleVenueClick={this.handleVenueClick}
+                    venueId={this.state.venueId}
+                    handleAddFavorite={this.handleAddFavorite}
+                  />
+                )}
               />
-            )}
-          />
-          <Route
-            exact
-            path="/recommendations/:id"
-            render={props => (
-              <DetailRecommendationPage
-                venues={this.state.venues}
-                venue={this.state.venues[this.state.venueId]}
-                key={this.state.venueId}
-                user={this.state.user}
+              <Route exact  path="/recommendations/:id"
+                render={props => (
+                  <DetailRecommendationPage
+                    venues={this.state.venues}
+                    venue={this.state.venues[this.state.venueId]}
+                    key={this.state.venueId}
+                    user={this.state.user}
+                    currentVenueId={this.state.currentVenueId}
+                  />
+                )}
               />
-            )}
-          />
-          <Route exact path="/favorites" 
-            render={() => 
-              <FavoritesPage 
-                favorites={this.state.favorites}
-              />} />
-            )
-          }/>
-        </Switch>
-        </div>
-      </Router>
-            {/* <UserProfile user={user} />
-            <p><a onClick={this.handleClick}>Test the protected route. Results below...</a></p>
-            <p>{this.state.lockedResult}</p> */}
+              <Route exact path="/favorites" 
+                render={() => 
+                  <FavoritesPage 
+                    favorites={this.state.favorites}
+                  />} />
+                )
+              }/>
+            </Switch>
+            </div>
+          </Router>
           </div>
         </div>
       )
@@ -286,4 +279,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App

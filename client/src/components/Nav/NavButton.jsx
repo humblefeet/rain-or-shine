@@ -45,7 +45,6 @@ class NavButton extends Component {
                 this.dropdownMenu = element;
               }}
             >
-              <h6>Welcome {this.props.user}</h6>
               <Link to="/favorites">
                 <div className="dropdown-links">Favorites</div>
               </Link>

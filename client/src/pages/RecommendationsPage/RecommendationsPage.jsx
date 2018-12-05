@@ -6,7 +6,7 @@ class RecommendationsPage extends Component {
   render() {
     return (
       <div>
-        <h2>Your Recommendations</h2>
+        <h2>Some Places You Can Go</h2>
         <RecommendationsList
           venues={this.props.venues}
           handleVenueClick={this.props.handleVenueClick}

@@ -13,6 +13,10 @@ h2 {
   margin: 0 auto;
   border: 4px black solid;
   width: 45%;
-  background-color: rgb(255, 255, 163);
+  background-color: rgb(252, 221, 85);
   padding: 0 auto;
+}
+
+.button > h3{
+  text-align: center;
 }

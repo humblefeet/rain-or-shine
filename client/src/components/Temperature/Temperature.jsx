@@ -35,6 +35,8 @@ class Temperature extends React.Component{
       case("fog"):
         src="https://i.imgur.com/sdRze4e.png";
         break;
+      default:
+        src="https://i.imgur.com/7d1ud3t.png";
     }
     return(
   
