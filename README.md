@@ -1,6 +1,8 @@
 # rainORshine
 To put it simply, Rain-or-Shine is a weather based activity web application. The user is given weather based on his or geolocation. Based on certain parameters in the current weather, a list is generated on local places to go. For example, if it is raining, the list has a majority of indoor locations, or venues, to choose from, like restaurants or museums. If the weather calls for clear skies and moderate  temperatures, the user is offered parks or trail nearby, as well as restaurants that offer  outdoor seating.
 
+<a href="https://glacial-wave-90784.herokuapp.com/">  Heroku Deployed App  </a>
+
 ## Technologies Used
 1. ReactJS
 2. NodeJS
@@ -29,7 +31,7 @@ To put it simply, Rain-or-Shine is a weather based activity web application. The
 
 4. There was a lack of data returning from the FourSquare API that I was using. This led to less than ideal details pages. In order to get a more specifics on certain venues, like pictures, phone number, comments, I would need to make a seperate call using each individual venue's id. This was too costly or a process after already calling 2 api's prior and this is something I only learned with a few days left of development. 
 
-###IceBox
+### IceBox
 
 1. I would like to implement MapBox to allow for a map of all surrounding recommended places for the user based on the weater. Directions tto these places would be ideal. 
 
@@ -40,7 +42,7 @@ To put it simply, Rain-or-Shine is a weather based activity web application. The
 4. 100% mobile.
 
 
-## User Stories
+### User Stories
 
 1. AAU, I give the app permission to access my gps location
 2. Location is plotted on a map
@@ -81,3 +83,7 @@ To put it simply, Rain-or-Shine is a weather based activity web application. The
     - good weather outdoor venues
   - Profile avatar
   - email/ username
+
+### TrelloBoard
+
+![Imgur](https://i.imgur.com/JbWI5gJ.png)
